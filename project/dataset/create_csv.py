@@ -1,4 +1,7 @@
-
+'''
+Author: Raisa
+This python script is for creating training label and save to csv format
+'''
 
 import pandas as pd
 import os 
@@ -29,41 +32,41 @@ data10 = {'id': [i for i in range(14764,16675)],
 
 
 df = pd.DataFrame(data1, columns = ['id','label']) 
-df.to_csv('E:/CSE/Thesis/project/dataset/train.csv',header=True,index=False)
+df.to_csv('E:/CSE/Research/project/dataset/train.csv',header=True,index=False)
 
 df = pd.DataFrame(data2, columns = ['id','label']) 
-df.to_csv('E:/CSE/Thesis/project/dataset/train1.csv',header=True,index=False)
+df.to_csv('E:/CSE/Research/project/dataset/train1.csv',header=True,index=False)
 
 df = pd.DataFrame(data3, columns = ['id','label']) 
-df.to_csv('E:/CSE/Thesis/project/dataset/train2.csv',header=True,index=False)
+df.to_csv('E:/CSE/Research/project/dataset/train2.csv',header=True,index=False)
 
 df = pd.DataFrame(data4, columns = ['id','label']) 
-df.to_csv('E:/CSE/Thesis/project/dataset/train3.csv',header=True,index=False)
+df.to_csv('E:/CSE/Research/project/dataset/train3.csv',header=True,index=False)
 
 df = pd.DataFrame(data5, columns = ['id','label']) 
-df.to_csv('E:/CSE/Thesis/project/dataset/train4.csv',header=True,index=False)
+df.to_csv('E:/CSE/Research/project/dataset/train4.csv',header=True,index=False)
 
 df = pd.DataFrame(data6, columns = ['id','label']) 
-df.to_csv('E:/CSE/Thesis/project/dataset/train5.csv',header=True,index=False)
+df.to_csv('E:/CSE/Research/project/dataset/train5.csv',header=True,index=False)
 
 df = pd.DataFrame(data7, columns = ['id','label']) 
-df.to_csv('E:/CSE/Thesis/project/dataset/train6.csv',header=True,index=False)
+df.to_csv('E:/CSE/Research/project/dataset/train6.csv',header=True,index=False)
 
 df = pd.DataFrame(data8, columns = ['id','label']) 
-df.to_csv('E:/CSE/Thesis/project/dataset/train7.csv',header=True,index=False)
+df.to_csv('E:/CSE/Research/project/dataset/train7.csv',header=True,index=False)
 
 df = pd.DataFrame(data9, columns = ['id','label']) 
-df.to_csv('E:/CSE/Thesis/project/dataset/train8.csv',header=True,index=False)
+df.to_csv('E:/CSE/Research/project/dataset/train8.csv',header=True,index=False)
 
 df = pd.DataFrame(data10, columns = ['id','label']) 
-df.to_csv('E:/CSE/Thesis/project/dataset/train9.csv',header=True,index=False)'''
+df.to_csv('E:/CSE/Research/project/dataset/train9.csv',header=True,index=False)'''
 
 #way to combine multiple csv file
 
-os.chdir("E:/CSE/Thesis/project/dataset")
+os.chdir("E:/CSE/Research/project/dataset")
 extension = 'csv'
 all_filenames = [i for i in glob.glob('*.{}'.format(extension))]
 #combine all files in the list
 combined_csv = pd.concat([pd.read_csv(f) for f in all_filenames ])
 #export to csv
-combined_csv.to_csv( "E:/CSE/Thesis/project/dataset/trainLabels.csv", index=False, encoding='utf-8-sig')
+combined_csv.to_csv( "E:/CSE/Research/project/dataset/trainLabels.csv", index=False, encoding='utf-8-sig')

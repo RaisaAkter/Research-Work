@@ -12,9 +12,9 @@ from keras.callbacks import ModelCheckpoint, EarlyStopping
 import config
 
 #model_checkpoint_dir = os.path.join(config.checkpoint_path(), "baseline.h5")
-model_checkpoint_dir=os.path.join("E:/CSE/Thesis/project/checkpoint/","baseline.h5")
+model_checkpoint_dir=os.path.join("E:/CSE/Research/project/checkpoint/","baseline.h5")
 #saved_model_dir = os.path.join(config.output_path(), "baseline.h5")
-saved_model_dir=os.path.join("E:/CSE/Thesis/project/output/","baseline.h5")
+saved_model_dir=os.path.join("E:/CSE/Research/project/output/","baseline.h5")
 
 #CNN model
 def get_model():
