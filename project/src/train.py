@@ -4,6 +4,8 @@ Date: 15-12-19
 Python Script for train data
 '''
 import keras
+import sys
+sys.path.append('../')
 import numpy as np 
 from keras.preprocessing.image import ImageDataGenerator
 
@@ -29,7 +31,7 @@ model_cp = my_model.save_model_checkpoint()
 early_stopping = my_model.set_early_stopping()
 
 
-model.fit(x_train, y_train, batch_size=200, epochs=50, verbose=2, callbacks=[early_stopping,model_cp]
+model.fit(x_train, y_train, batch_size=200, epochs=70, verbose=2, callbacks=[early_stopping,model_cp]
             ,shuffle=True,validation_split=0.2)
 
 print("Done")

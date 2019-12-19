@@ -19,6 +19,7 @@ from tqdm import tqdm
 import os
 import pandas as pd  
 import glob
+import config
 
 #from .. import config
 
@@ -35,38 +36,36 @@ def normalization(x):
 
 #reading the label file
 def load_train_data():
-    train = pd.read_csv('E:/CSE/Research/project/dataset/trainLabel.csv')
+    train = pd.read_csv(config.project_root+'dataset/trainLabel.csv')
 
     #loading the train dataset
     train_image = []
-    train_image1 = []
-    train_image2 = []
-    '''for i in tqdm(range(train.shape[0]//3)):
-        img = image.load_img('E:/CSE/Research/project/dataset/train/'+train['id'][i].astype('str')+'.png', target_size=(128,128,3))
+    '''for i in tqdm(range(train.shape[0])):
+        img = image.load_img(config.project_root+'dataset/train/'+train['id'][i].astype('str')+'.png', target_size=(128,128,3))
         img = image.img_to_array(img)  #convert to numpy array
         img = normalization(img)
         train_image.append(img) 
-    X1 = np.array(train_image)
-    np.save('E:/CSE/Research/project/dataset/train1'+'.npy',X1)
+    X = np.array(train_image)'''
+    #np.save(config.project_root+'dataset/train1'+'.npy',X1)
 
-    for i in tqdm(range(train.shape[0]//3,(train.shape[0]*2)//3)):
-        img = image.load_img('E:/CSE/Research/project/dataset/train/'+train['id'][i].astype('str')+'.png', target_size=(128,128,3))
+    '''for i in tqdm(range(train.shape[0]//3,(train.shape[0]*2)//3)):
+        img = image.load_img(config.project_root+'dataset/train/'+train['id'][i].astype('str')+'.png', target_size=(128,128,3))
         img = image.img_to_array(img)  #convert to numpy array
         img = normalization(img)
         train_image1.append(img) 
     X2 = np.array(train_image1)
-    np.save('E:/CSE/Research/project/dataset/train2'+'.npy',X2)
+    np.save(config.project_root+'dataset/train2'+'.npy',X2)
 
     for i in tqdm(range((train.shape[0]*2)//3,train.shape[0])):
-        img = image.load_img('E:/CSE/Research/project/dataset/train/'+train['id'][i].astype('str')+'.png', target_size=(128,128,3))
+        img = image.load_img(config.project_root+'dataset/train/'+train['id'][i].astype('str')+'.png', target_size=(128,128,3))
         img = image.img_to_array(img)  #convert to numpy array
         img = normalization(img)
         train_image2.append(img) 
     X3 = np.array(train_image2)
-    np.save('E:/CSE/Research/project/dataset/train3'+'.npy',X3)'''
+    np.save(config.project_root+'dataset/train3'+'.npy',X3)
 
-    '''fpath ='E:/CSE/Research/project/dataset/train'
-    npyfilespath = 'E:/CSE/Research/project/dataset/' 
+    fpath =config.project_root+'dataset/train'
+    npyfilespath = config.project_root+'dataset/' 
     os.chdir(npyfilespath)
     npfiles= glob.glob("*.npy")
     npfiles.sort()
@@ -75,15 +74,15 @@ def load_train_data():
         all_arrays.append(np.load(os.path.join(npyfilespath, npfile)))
     np.save(fpath+'.npy', np.concatenate(all_arrays))
     print("Loading data...")
-    train1=np.load('E:/CSE/Research/project/dataset/train1'+'.npy')
-    train2=np.load('E:/CSE/Research/project/dataset/train2'+'.npy')
-    train3=np.load('E:/CSE/Research/project/dataset/train3'+'.npy')
+    train1=np.load(config.project_root+'dataset/train1'+'.npy')
+    train2=np.load(config.project_root+'dataset/train2'+'.npy')
+    train3=np.load(config.project_root+'dataset/train3'+'.npy')
     concat=np.concatenate((train1,train2,train3),axis=0)
-    np.save('E:/CSE/Research/project/dataset/train'+'.npy',concat)
+    np.save(config.project_root+'dataset/train'+'.npy',concat)'''
 
-    #np.save('E:/CSE/Research/project/dataset/train'+'.npy',X)'''
+    #np.save(config.project_root+'dataset/train'+'.npy',X)
     print("Loading train data...")
-    X=np.load('E:/CSE/Research/project/dataset/train1'+'.npy')
+    X=np.load(config.project_root+'dataset/train'+'.npy')
 
     #on hot encoding
     y=train['label'].values
@@ -101,6 +100,7 @@ def load_train_data():
     #convert the labels into categorical  
 
     y = np_utils.to_categorical(y,num_classes)
+    print(X.shape[0])
     return X,y
 #load_train_data()
 #Split the data

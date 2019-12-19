@@ -11,24 +11,26 @@ from keras.models import Sequential, load_model
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 import config
 
+
 #model_checkpoint_dir = os.path.join(config.checkpoint_path(), "baseline.h5")
-model_checkpoint_dir=os.path.join("E:/CSE/Research/project/checkpoint/","baseline.h5")
+model_checkpoint_dir=os.path.join(config.project_root+"checkpoint/","baseline.h5")
 #saved_model_dir = os.path.join(config.output_path(), "baseline.h5")
-saved_model_dir=os.path.join("E:/CSE/Research/project/output/","baseline.h5")
+saved_model_dir=os.path.join(config.project_root+"output/","baseline.h5")
+print(model_checkpoint_dir,saved_model_dir)
 
 #CNN model
 def get_model():
     model = Sequential()
-    model.add(Conv2D(32, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
+    model.add(Conv2D(64, kernel_size=(5,5),input_shape=config.img_shape,padding='same'))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2,2)))
 
-    model.add(Conv2D(32, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
+    model.add(Conv2D(128, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2,2)))
 
     model.add(Flatten())
-    model.add(Dense(128,kernel_regularizer=keras.regularizers.l2(l=0.01)))
+    model.add(Dense(384,kernel_regularizer=keras.regularizers.l2(l=0.01)))
     model.add(Activation('relu'))
     model.add(Dense(config.num_classes, activation='softmax'))
 
@@ -57,3 +59,4 @@ def set_early_stopping():
 if __name__ == "__main__":
     m = get_model()
     m.summary()
+print("done")
