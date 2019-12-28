@@ -15,14 +15,12 @@ from keras.utils.np_utils import to_categorical
 from keras.utils import np_utils
 from keras.preprocessing import image
 import numpy as np
-from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 import os
 import pandas as pd  
 import glob
 import config
 
-#from .. import config
 
 #Basic information
 num_classes=10

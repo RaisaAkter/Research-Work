@@ -1,6 +1,6 @@
 '''
 Author: Raisa
-Date: 15-12-19
+Date: 28-12-19
 This python script for network architecture
 '''
 import keras, os
@@ -17,7 +17,7 @@ import config
 model_checkpoint_dir=os.path.join(config.project_root+"checkpoint/","baseline.h5")
 #saved_model_dir = os.path.join(config.output_path(), "baseline.h5")
 saved_model_dir=os.path.join(config.project_root+"output/","baseline.h5")
-print(model_checkpoint_dir,saved_model_dir)
+#print(model_checkpoint_dir,saved_model_dir)
 
 #CNN model
 def get_model():
@@ -38,9 +38,9 @@ def get_model():
     model.add(Activation('relu'))
     model.add(BatchNormalization())
 
-    model.add(Conv2D(32, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
+    '''model.add(Conv2D(32, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
     model.add(Activation('relu'))
-    model.add(BatchNormalization())
+    model.add(BatchNormalization())'''
 
     model.add(MaxPooling2D(pool_size=(2,2)))
     #model.add(Dropout(rate=0.20))
@@ -49,9 +49,9 @@ def get_model():
     model.add(Activation('relu'))
     model.add(BatchNormalization())
 
-    model.add(Conv2D(64, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
+    '''model.add(Conv2D(64, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
     model.add(Activation('relu'))
-    model.add(BatchNormalization())
+    model.add(BatchNormalization())'''
 
     model.add(MaxPooling2D(pool_size=(2,2)))
     #model.add(Dropout(rate=0.20))
@@ -81,7 +81,7 @@ def save_model_checkpoint():
 
 def set_early_stopping():
     return EarlyStopping(monitor = 'val_loss', 
-                        patience = 30, 
+                        patience = 25, 
                         verbose = 2, 
                         mode = 'auto')
 
