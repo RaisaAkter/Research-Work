@@ -1,5 +1,5 @@
 #Author Raisa
-#Date: 24-12-19
+#Date: 30-12-19
 #This file is for import image and process them so that I can use them in any deep learning algorithm
 #import keras
 #from keras.preprocessing import image
@@ -21,11 +21,6 @@ import pandas as pd
 import glob
 import config
 
-
-#Basic information
-num_classes=10
-nb_train_img=16674
-nb_test_img=4153
 
 def normalization(x):
     x = np.divide(x, 255.0)
@@ -109,19 +104,19 @@ def load_train_data():
     train = pd.read_csv(config.project_root+'dataset/trainLabel.csv')
 
     #loading the train dataset
-    '''train_image = []
+    train_image = []
     for i in tqdm(range(train.shape[0])):
-        img = image.load_img(config.project_root+'dataset/train/'+train['id'][i].astype('str')+'.png', target_size=(128,128,3))
-        img_path=config.project_root+'dataset/train/'+train['id'][i].astype('str')+'.png'
-        imag= cv2.imread(img_path)
-        img = cv2.cvtColor(imag, cv2.COLOR_BGR2GRAY)
-        ret,thresh4 = cv2.threshold(imag,127,255,cv2.THRESH_TOZERO)
+        img = image.load_img(config.project_root+'dataset/train/'+train['id'][i].astype('str')+'.png', target_size=config.img_shape)
+        #img_path=config.project_root+'dataset/train/'+train['id'][i].astype('str')+'.png'
+        #imag= cv2.imread(img_path)
+        #img = cv2.cvtColor(imag, cv2.COLOR_BGR2GRAY)
+        #ret,thresh4 = cv2.threshold(imag,127,255,cv2.THRESH_TOZERO)
         img = image.img_to_array(img)  #convert to numpy array
         img = normalization(img)
         train_image.append(img) 
     X = np.array(train_image)
 
-    np.save(config.project_root+'dataset/train'+'.npy',X)'''
+    np.save(config.project_root+'dataset/train'+'.npy',X)
     print("Loading train data...")
     X=np.load(config.project_root+'dataset/train'+'.npy')
 
@@ -135,12 +130,12 @@ def load_train_data():
     y[y == 'Nayantara'] = 5
     y[y == 'Neem'] = 6
     y[y == 'Sojne'] = 7
-    y[y == 'thankuni'] = 8
+    y[y == 'Thankuni'] = 8
     y[y == 'Tulsi'] = 9
 
     #convert the labels into categorical  
 
-    y = np_utils.to_categorical(y,num_classes)
+    y = np_utils.to_categorical(y,config.num_classes)
     print(X.shape[0])
     return X,y
 

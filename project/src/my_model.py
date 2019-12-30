@@ -43,7 +43,7 @@ def get_model():
     model.add(BatchNormalization())'''
 
     model.add(MaxPooling2D(pool_size=(2,2)))
-    #model.add(Dropout(rate=0.20))
+    model.add(Dropout(rate=0.20))
 
     model.add(Conv2D(64, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
     model.add(Activation('relu'))
@@ -54,13 +54,13 @@ def get_model():
     model.add(BatchNormalization())'''
 
     model.add(MaxPooling2D(pool_size=(2,2)))
-    #model.add(Dropout(rate=0.20))
+    model.add(Dropout(rate=0.25))
 
     model.add(Flatten())
     model.add(Dense(128,kernel_regularizer=keras.regularizers.l2(l=0.001)))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
-    #model.add(Dropout(rate=0.30))
+    model.add(Dropout(rate=0.30))
     model.add(Dense(config.num_classes, activation='softmax'))
 
     return model

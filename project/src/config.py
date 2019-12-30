@@ -2,15 +2,15 @@
 Author: Raisa
 '''
 import os
-nb_train=16674
-nb_test=4153
+nb_train=18627
+nb_test=2142
 img_size=128
-img_channel=1
+img_channel=3
 img_shape=(img_size,img_size,img_channel)
 num_classes=10
-lr1=0.001
-lr2=0.0001
-lr3=0.00001
+lr_1=0.001
+lr_2=0.0001
+lr_3=0.00001
 #project_root='/home/cliqruser/Downloads/project/'
 project_root='E:/CSE/Research/project/'
 
