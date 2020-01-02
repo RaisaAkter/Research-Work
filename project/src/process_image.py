@@ -105,7 +105,7 @@ def load_train_data():
 
     #loading the train dataset
     train_image = []
-    for i in tqdm(range(train.shape[0])):
+    '''for i in tqdm(range(train.shape[0])):
         img = image.load_img(config.project_root+'dataset/train/'+train['id'][i].astype('str')+'.png', target_size=config.img_shape)
         #img_path=config.project_root+'dataset/train/'+train['id'][i].astype('str')+'.png'
         #imag= cv2.imread(img_path)
@@ -116,7 +116,7 @@ def load_train_data():
         train_image.append(img) 
     X = np.array(train_image)
 
-    np.save(config.project_root+'dataset/train'+'.npy',X)
+    np.save(config.project_root+'dataset/train'+'.npy',X)'''
     print("Loading train data...")
     X=np.load(config.project_root+'dataset/train'+'.npy')
 

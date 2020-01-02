@@ -8,6 +8,7 @@ img_size=128
 img_channel=3
 img_shape=(img_size,img_size,img_channel)
 num_classes=10
+batch_size=64
 lr_1=0.001
 lr_2=0.0001
 lr_3=0.00001

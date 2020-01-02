@@ -32,7 +32,6 @@ def summarize_diagnostics(history):
 	pyplot.plot(history.history['accuracy'], color='blue', label='train')
 	pyplot.plot(history.history['val_accuracy'], color='orange', label='test')
 	# save plot to file
-	filename = sys.argv[0].split('/')[-1]
 	pyplot.savefig(config.project_root+'output/' + '_plot.png')
 	pyplot.close()
 
@@ -45,7 +44,7 @@ print("train data label: ", Y_train.shape)
 model = my_model.get_model()
 model.summary()
 #splitting the whole data in 0.15 size
-X_train, X_test, y_train, y_test = train_test_split(x_train, Y_train, random_state=42, test_size=0.15)
+X_train, X_test, y_train, y_test = train_test_split(x_train, Y_train, random_state=42, test_size=0.20)
 #print(X_train.shape, X_test.shape,y_train.shape,y_test.shape)
 
 #Learning rate scheduler
@@ -63,7 +62,7 @@ def lr_scheduler(epoch):
     return K.get_value(model.optimizer.lr)
 
 #compile
-opt = SGD(lr=0.001, momentum=0.9)
+opt = SGD(lr=0.0001, momentum=0.9)
 model.compile(optimizer= opt,
            loss= keras.losses.categorical_crossentropy,
             metrics = ['accuracy'])
@@ -73,21 +72,23 @@ model_cp = my_model.save_model_checkpoint()
 early_stopping = my_model.set_early_stopping()
 
 datagen = ImageDataGenerator(width_shift_range=0.1, height_shift_range=0.1,
-                            rotation_range=10,
+                            rotation_range=5,
                             featurewise_center=True,
                             featurewise_std_normalization=True)
                             
                             
-it_train = datagen.flow(X_train, y_train, batch_size=200)
+it_train = datagen.flow(X_train, y_train, batch_size=config.batch_size)
 #change_lr = LearningRateScheduler(lr_scheduler)
-steps = int(X_train.shape[0] / 200)
-history = model.fit_generator(it_train, steps_per_epoch=steps, epochs=120, validation_data=(X_test, y_test), verbose=2,
+steps = int(X_train.shape[0] / config.batch_size)
+history = model.fit_generator(it_train, steps_per_epoch=steps, epochs=200, validation_data=(X_test, y_test), verbose=2,
             callbacks=[early_stopping,model_cp])
 
+
 summarize_diagnostics(history)
+#print ("%s: %.2f%%" % (model.metrics_names[1], history[1]*100))
 
 
-#history= model.fit(x_train, y_train, batch_size=200, epochs=70, verbose=2, callbacks=[early_stopping,model_cp]
+#history= model.fit(x_train, y_train, batch_size=config.batch_size, epochs=70, verbose=2, callbacks=[early_stopping,model_cp]
  #           ,shuffle=True,validation_split=0.15)
 
 print("Done")

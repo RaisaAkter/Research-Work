@@ -22,45 +22,63 @@ saved_model_dir=os.path.join(config.project_root+"output/","baseline.h5")
 #CNN model
 def get_model():
     model = Sequential()
-    '''model.add(Conv2D(32, kernel_size=(5,5),input_shape=config.img_shape,padding='same'))
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2,2)))
-
-    model.add(Conv2D(64, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2,2)))
-
-    model.add(Flatten())
-    model.add(Dense(128,kernel_regularizer=keras.regularizers.l2(l=0.01)))
-    model.add(Activation('relu'))
-    model.add(Dense(config.num_classes, activation='softmax'))'''
-    model.add(Conv2D(32, kernel_size=(5, 5),input_shape=config.img_shape,padding='same'))
+    '''model.add(Conv2D(32, kernel_size=(5, 5),input_shape=config.img_shape,padding='same'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
 
-    '''model.add(Conv2D(32, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Dropout(rate=0.05))
+
+    model.add(Conv2D(64, kernel_size=(5, 5),input_shape=config.img_shape,padding='same'))
     model.add(Activation('relu'))
-    model.add(BatchNormalization())'''
+    model.add(BatchNormalization())
 
     model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Dropout(rate=0.15))
+
+    model.add(Flatten())
+    model.add(Dense(128,kernel_regularizer=keras.regularizers.l2(l=0.0001)))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
     model.add(Dropout(rate=0.20))
+    model.add(Dense(config.num_classes, activation='softmax'))'''
 
-    model.add(Conv2D(64, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
+
+
+    '''
+    currently # parameters are 50,411,522. if overfitting occurs 
+    , then  uncomment this block. # parameters would be 719,234 with 
+    two classes.'''
+
+    
+    model.add(Conv2D(128, kernel_size=(5, 5),input_shape=config.img_shape,padding='same'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
-
-    '''model.add(Conv2D(64, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
-    model.add(Activation('relu'))
-    model.add(BatchNormalization())'''
-
     model.add(MaxPooling2D(pool_size=(2,2)))
-    model.add(Dropout(rate=0.25))
+    
 
-    model.add(Flatten())
-    model.add(Dense(128,kernel_regularizer=keras.regularizers.l2(l=0.001)))
+    model.add(Conv2D(128, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
-    model.add(Dropout(rate=0.30))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+   
+
+    model.add(Conv2D(128, kernel_size=(3, 3),input_shape=config.img_shape,padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    
+
+    
+    model.add(Flatten())
+    #model.add(Dense(384,kernel_regularizer=keras.regularizers.l2(l=0.01)))
+    #try instead without kernel_regularizer. if the loss decreased then
+    #you can add regularizer. the given value is too high. better try with 
+    # say 0.001
+    #model.add(Dense(384))
+    model.add(Dense(384,kernel_regularizer=keras.regularizers.l2(l=0.001)))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
     model.add(Dense(config.num_classes, activation='softmax'))
 
     return model

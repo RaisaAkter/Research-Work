@@ -10,12 +10,26 @@ import keras
 from keras.models import load_model
 from keras.optimizers import SGD
 import pandas as pd
+from matplotlib import pyplot
 import test 
+
+def summarize_diagnostics(history):
+	# plot loss
+	pyplot.subplot(211)
+	pyplot.title('Cross Entropy Loss')
+	pyplot.plot(prediction.prediction['val_loss'], color='orange', label='test')
+	# plot accuracy
+	pyplot.subplot(215)
+	pyplot.title('Classification Accuracy')
+	pyplot.plot(prediction.prediction['accuracy'], color='orange', label='test')
+	# save plot to file
+	pyplot.savefig(config.project_root+'output/' + 'curve.png')
+	pyplot.close()
 
 test = test.load_test_data()
 #X_train, X_test, y_train, y_test = train_test_split(x_train, Y_train, random_state=42, test_size=0.15)
 
-model = load_model(config.project_root+'checkpoint/'+'baseline0.h5')
+model = load_model(config.project_root+'checkpoint/'+'baseline.h5')
 #loaded_model.load_weights("Data/model.h5")
 print("Loaded model from disk")
 
@@ -40,7 +54,8 @@ def replace_error(data):
     data.replace(0,'Akondo', inplace=True)
 
 # making predictions
-prediction = model.predict_classes(test, batch_size=200, verbose=2)
+prediction = model.predict_classes(test, batch_size=64, verbose=2)
+#summarize_diagnostics(prediction)
 # creating submission file
 sample = pd.read_csv(config.project_root+'dataset/sample.csv')
 sample['label'] = prediction

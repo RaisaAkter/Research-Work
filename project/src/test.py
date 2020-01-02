@@ -22,7 +22,7 @@ def load_test_data():
         img = process_image.normalization(img)
         test_image.append(img)
     y = np.array(test_image)
-    np.save(config.project_root+'dataset/test_'+str(i)+'.npy',y)'''
+    np.save(config.project_root+'dataset/test'+'.npy',y)'''
     print("Loading test data...")
-    y=np.load(config.project_root+'dataset/test_2142'+'.npy')
+    y=np.load(config.project_root+'dataset/test'+'.npy')
     return y 
